@@ -1,0 +1,82 @@
+body {
+    background-color: #2B2B2B;
+    margin: 0;
+}
+html {
+    margin: 0;
+}
+* {
+    margin: 5px;
+    padding: 0;
+    font-family: arial;
+}
+h1 {
+    color: white;
+    text-align: center;
+}
+p {
+    color: white;
+    font-size: 15px;
+    text-align: center;
+}
+h4 {
+    color: white;
+    text-align: center;
+}
+.outer-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.inner-container {
+    background-color: #212121;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 400px;
+    padding: 20px;
+    margin: 0;
+}
+.recommendations {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.recommendation {
+    color: white;
+    background-color: rgb(48, 48, 48);
+    padding: 5px;
+    margin: 5px;
+}
+.recommendation:hover {
+    background-color: white;
+    color: rgb(48, 48, 48);
+    cursor: pointer;
+}
+.liste {
+    background-color: rgb(26, 26, 26);
+    width: 100%;
+    padding: 5px;
+}
+.table {
+    border-collapse: collapse;
+    color: white;
+}
+.table td, .table th {
+    border: 1px solid white;
+    padding: 5px;
+}
+.table th {
+    background-color: rgb(36, 110, 44);
+    color: white
+}
+
+@media only screen and (max-width: 230px) {
+    .outer-container {
+        justify-content: start;
+    }
+}
