@@ -72,6 +72,7 @@ p, h4, h1{
 #liste {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 #liste p:hover {
     text-decoration: line-through 5px solid red;
