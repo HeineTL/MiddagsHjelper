@@ -2,11 +2,12 @@ updateView();
 function updateView() {
     let showIngredientsButton = showIngredients ? `${addIngredients()}` : `<button onclick="toggleShowIngredients()">Se hva du kan lage!</button>`;
 
+    let showFilterButton = showFilter ? `${addFilters()}` : `<button onclick="toggleShowFilters()">Filtrer</button>`
     app.innerHTML = /*HTML*/`
         <div class="outer-container">
             <div class="inner-container">
                 <h1>Middags Hjelper</h1>
-                <button>Filtrer</button>
+                ${showFilterButton}
                 <h4>Klikk for å legge til i listen</h2>
                 <div class="recommendations">
                     ${addFood()}
@@ -35,8 +36,10 @@ function updateList() {
 
 function addFood() {
     let value = "";
-    for (let i = 0; i < middag.length; i++) {
-        value += `<div onclick="addToList(${i})" class='recommendation'>${middag[i].name}</div>`;
+    for (let i = 0; i < model.middager.length; i++) {
+        if(!removedMeals.includes(middag[i].name)) {
+            value += `<div onclick="addToList(${i})" class='recommendation'>${middag[i].name}</div>`;
+        }
     }
     return value;
 }
@@ -71,11 +74,39 @@ function addDinnerRecommendations() {
 
     let DinnerRecommendation = document.getElementById("addDinnerRecommendationsHere");
 
-    if(possibleDinners.length == 0) {
+    if (possibleDinners.length == 0) {
         DinnerRecommendation.innerHTML = "<p>Du har ingenting å lage! Kom deg på butikken!</p>";
-    } else if(possibleDinners.length > 0) {
+    } else if (possibleDinners.length > 0) {
         DinnerRecommendation.innerHTML = `<p><b>Med det du har kan du lage:</b> ${possibleDinners.join(", ")}</p>`;
     }
 
 
+}
+
+function addFilters() {
+    value = `
+    <table class="table">
+            <tr>
+                <th>Filter</th>
+                <th>Fjern?</th>
+            </tr>
+            `;
+
+            for(let i = 0; i < model.allergies.length; i++) {
+                value += `
+                <tr>
+                <td>${model.allergies[i].name}</td>
+                <td><input onclick="sort('${model.allergies[i].name}')" id="${model.allergies[i].name}Check" type="checkbox"></td>
+                </tr>
+                `;
+            }
+    value += `
+    </table>
+    <div class="filters">
+        <button onclick="filterRemove()">Oppdater valg</button>
+        <button onclick="removeFilters()">Fjern alle filtere</button>
+        <button onclick="toggleShowFilters()">Gjem liste</button>
+    </div>
+    `;
+    return value;
 }

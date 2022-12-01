@@ -1,8 +1,8 @@
 function collectIngredients() {
     let tempArray = [];
 
-    for (let i = 0; i < middag.length; i++) { //Looper gjennom alle middager
-        for (let j = 0; j < middag[i].ingredients.length; j++) { //Looper gjennom alle ingredienser i middager
+    for (let i = 0; i < middag.length; i++) {
+        for (let j = 0; j < middag[i].ingredients.length; j++) {
             let tempIngredienser = middag[i].ingredients[j];
             if (!tempArray.includes(tempIngredienser)) {
                 tempArray.push(tempIngredienser);
@@ -45,25 +45,7 @@ function checkPossibleDinners() {
             }
         }
     }
-
-    // for(let k = 0; k < middag[j].ingredients.length; k++) {
-    //     //Looper gjennom hver av ingrediensene til middagene
-    //     let ingrediens = middag[j].ingredients[k];
-    //     if (availableIngredients.includes(ingrediens)) {
-    //         matchingIngredient++;
-    //         if(matchingIngredient == middag[j].ingredients.length) {
-    //             matchingIngredient = 0;
-    //             console.log("MAAATCH: " + middag[j].name);
-    //         }
-    //     } else {
-    //         matchingIngredient = 0;
-    //     }
-
-    // }
-
 }
-
-
 
 function addToList(index) {
     if (middagsListe.includes(middag[index])) { return; }
@@ -80,10 +62,54 @@ function toggleShowIngredients() {
     showIngredients = !showIngredients;
     updateView();
 }
-
-function newfunc() {
+function toggleShowFilters() {
+    showFilter = !showFilter;
+    updateView();
 }
 
-function johnny() {
-    console.log(model.middager);
+function sort(filter) {
+    for(let i = 0; i < model.allergies.length; i++) {
+
+        const modelIndex = model.allergies.findIndex(object => {
+                 return object.name === filter;
+               });
+
+        if(model.allergies[i].name == filter) {
+            let filterButton = document.getElementById(filter+"Check");
+            if(filterButton.checked) {
+                allergyList.push(model.allergies[modelIndex]);
+            } else {
+                let tempIndex = allergyList.indexOf(model.allergies[modelIndex]);
+                allergyList.splice(tempIndex, 1);
+            }
+        }
+    }
+
+}
+
+function filterRemove() {
+
+    for (let i = 0; i < allergyList.length; i++) {
+        for (let j = 0; j < model.allergies[i].cant_eat.length; j++) {
+            for (let k = 0; k < model.middager.length; k++) {
+                if (model.middager[k].ingredients.includes(allergyList[i].cant_eat[j])) {
+                    if(!removedMeals.includes(model.middager[k].name)) {
+                        removedMeals.push(model.middager[k].name);
+                        console.log(model.middager[k].name + " er ute av bildet");
+                    }
+                }
+            }
+        }
+    }
+    
+
+    toggleShowFilters();
+
+}
+
+function removeFilters() {
+    allergyList.splice(0, allergyList.length);
+    removedMeals.splice(0, removedMeals.length);
+
+    updateView();
 }
