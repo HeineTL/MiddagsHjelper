@@ -95,7 +95,6 @@ function filterRemove() {
                 if (model.middager[k].ingredients.includes(allergyList[i].cant_eat[j])) {
                     if(!removedMeals.includes(model.middager[k].name)) {
                         removedMeals.push(model.middager[k].name);
-                        console.log(model.middager[k].name + " er ute av bildet");
                     }
                 }
             }
